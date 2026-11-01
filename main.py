@@ -1,9 +1,6 @@
 import pygame
 import sys
-from game_logic import TicTacToeGame
-from ai.random_ai import RandomAI
-from ai.minimax_ai import MinimaxAI
-from sound_manager import SoundManager
+
 
 # Инициализация
 pygame.init()
