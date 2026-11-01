@@ -2,11 +2,11 @@
 
 ### (str) Title of your application
 
-title = Pygame NumPy App 
+title = Pygame NumPy AI App 
 
 ### (str) Package name
 
-package.name = pygamestartapp 
+package.name = pygameaiapp 
 
 ### (str) Package domain (needed for android packaging)
 
@@ -18,7 +18,11 @@ source.dir = . 
 
 ### (list) Source files to include (leave empty to include all the files)
 
-source.include_exts = py,png,jpg,kv,atlas,ttf 
+source.include_exts = py,png,jpg,kv,atlas,ttf,json,txt,npy,npz,pkl,pickle 
+
+### (list) List of directories to include (comma separated)
+
+source.include_dirs = ai 
 
 ### (str) Application versioning (method 1)
 
