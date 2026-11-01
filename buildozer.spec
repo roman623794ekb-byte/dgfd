@@ -18,7 +18,7 @@ source.dir = . 
 
 ### (list) Source files to include (leave empty to include all the files)
 
-source.include_exts = py,png,jpg,kv,atlas,ttf,json,txt,npy,npz,pkl,pickle 
+source.include_exts = py
 
 ### (list) List of directories to include (comma separated)
 
@@ -32,7 +32,7 @@ version = 0.1 
 
 ### comma separated e.g. requirements = sqlite3,kivy
 
-requirements = python3, pygame-ce, numpy 
+requirements = python3, pygame-ce
 
 ### (str) Supported orientations (valid options are: landscape, portrait, all)
 
