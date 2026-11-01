@@ -1,0 +1,38 @@
+name: Build Python APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Проверка репозитория
+      uses: actions/checkout@v5  # Обновлено с v4 до v5, чтобы убрать предупреждение Node.js
+
+    - name: Настройка Java
+      uses: actions/setup-java@v5
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Установка системных зависимостей
+      run: |
+        sudo apt update
+        sudo apt install -y git zip unzip autoconf libtool pkg-config zlib1g-dev \
+        libncurses5-dev libsqlite3-dev cmake libffi-dev libssl-dev python3-pip \
+        python3-setuptools libltdl-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
+
+    - name: Установка Buildozer и Cython
+      run: |
+        pip3 install --upgrade pip
+        pip3 install "buildozer>=1.5.0" "cython<3.0.0" virtualenv
+
+    - name: Сборка APK с чистым Python 3.11
+      run: |
+        rm -rf .buildozer/
+        buildozer -v android debug
