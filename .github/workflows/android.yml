@@ -1,3 +1,21 @@
+    - name: Accept Android SDK Licenses
+      run: |
+        mkdir -p ~/.android
+        touch ~/.android/repositories.cfg
+        # Автоматически принимаем все лицензии Android SDK
+        yes | sdkmanager --licenses || true
+
+    - name: Build with Buildozer
+      run: |
+        rm -rf .buildozer/
+        buildozer -v android debug
+      env:
+        JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+
+
+
+
+
 name: Build Python APK
 
 on:
