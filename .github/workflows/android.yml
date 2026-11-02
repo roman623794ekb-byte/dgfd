@@ -77,20 +77,20 @@ jobs:
 
     - name: Pre-accept Android SDK Licenses for Buildozer
       run: |
-        # Заранее создаем внутреннюю структуру папок для локального SDK Buildozer
-        mkdir -p $HOME/.buildozer/android/platform/android-sdk/licenses
+        # Полностью удаляем старый кэш с некорректным NDK r28c
+        rm -rf $HOME/.buildozer/
         
-        # Принудительно генерируем файлы одобрения всех лицензий Google SDK (включая aidl и build-tools)
+        # Пересоздаем структуру папок для лицензий локального SDK
+        mkdir -p $HOME/.buildozer/android/platform/android-sdk/licenses
         echo "244d2d05d31d39116e1dae29037a7028af17b1a4" > $HOME/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
         echo "84831b9409646a918e30573bab4c9c91346d8abd" > $HOME/.buildozer/android/platform/android-sdk/licenses/android-sdk-preview-license
         echo "6523030d9a7d24b67da647b19908de47ed5d4f3b" > $HOME/.buildozer/android/platform/android-sdk/licenses/android-sdk-arm-dbt-license
 
     - name: Build Android APK with Buildozer
       run: |
-        # Запуск сборки без удаления локальной папки .buildozer (чтобы сохранить подложенные файлы лицензий)
+        # Запускаем сборку без удаления папки, чтобы сохранить лицензии
         buildozer -v android debug
       env:
-        # Передаем только Java. Android-переменные не передаем, позволяя Buildozer изолированно скачать SDK
         JAVA_HOME: ${{ env.JAVA_HOME }}
 
     - name: Upload APK Artifact
