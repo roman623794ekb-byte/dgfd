@@ -93,12 +93,14 @@ jobs:
 
     - name: Build Android APK with Buildozer
       run: |
-        # Очищаем только кэш сборки приложения, но оставляем скачанные SDK/NDK в ~/.buildozer
         rm -rf .buildozer/
         buildozer -v android debug
       env:
-        # Принудительно передаем правильный путь к Java для Buildozer
         JAVA_HOME: ${{ env.JAVA_HOME }}
+        # Заставляем buildozer смотреть на предустановленные в CI пути:
+        ANDROID_SDK_ROOT: ${{ env.ANDROID_HOME }}
+        ANDROID_NDK_ROOT: ${{ env.ANDROID_NDK_LATEST_HOME }}
+
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
