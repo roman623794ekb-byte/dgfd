@@ -22,24 +22,23 @@ requirements = python3==3.11.16, hostpython3==3.11.16, kivy
 p4a.python_version = 3.11
 
 # =============================================================================
-# Настройки для GitHub Actions
+# Настройки для GitHub Actions (Автономное скачивание SDK/NDK)
 # =============================================================================
 
-# Указываем точный путь к sdkmanager в актуальных образах Ubuntu
-android.sdkmanager_path = /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager
-
-# Позволяем buildozer самому управлять SDK в локальной папке
+# Позволяем Buildozer самому управлять SDK в локальной папке .buildozer
+# (Все жесткие пути к системным SDK/sdkmanager должны быть закомментированы)
+# android.sdkmanager_path = 
 # android.sdk_path = 
 
-# Стабильные версии API для сборки
+# Стабильные версии API для сборки Kivy
 android.api = 33
 android.minapi = 21
 android.ndk_api = 21
 
-# Автоматически принимать лицензии
+# Автоматически принимать лицензии при скачивании компонентов
 android.accept_sdk_license = True
 
-# (list) Разрешения
+# (list) Разрешения приложения
 android.permissions = INTERNET
 
 # (string) Ориентация экрана
