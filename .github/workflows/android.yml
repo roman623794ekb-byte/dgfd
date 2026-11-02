@@ -75,26 +75,23 @@ jobs:
         pip install --upgrade pip
         pip install buildozer cython virtualenv
 
-    - name: Pre-accept Android SDK Licenses
+    - name: Pre-accept Android SDK Licenses for Buildozer
       run: |
-        # Создаем необходимые директории для лицензий Android SDK
-        mkdir -p $HOME/.android
-        touch $HOME/.android/repositories.cfg
+        # Заранее создаем внутреннюю структуру папок для локального SDK Buildozer
+        mkdir -p $HOME/.buildozer/android/platform/android-sdk/licenses
         
-        # Принудительно одобряем соглашения через системный sdkmanager в образе Ubuntu
-        if [ -d "$ANDROID_HOME/cmdline-tools/latest/bin" ]; then
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
-        fi
+        # Принудительно генерируем файлы одобрения всех лицензий Google SDK (включая aidl и build-tools)
+        echo "244d2d05d31d39116e1dae29037a7028af17b1a4" > $HOME/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
+        echo "84831b9409646a918e30573bab4c9c91346d8abd" > $HOME/.buildozer/android/platform/android-sdk/licenses/android-sdk-preview-license
+        echo "6523030d9a7d24b67da647b19908de47ed5d4f3b" > $HOME/.buildozer/android/platform/android-sdk/licenses/android-sdk-arm-dbt-license
 
     - name: Build Android APK with Buildozer
       run: |
-        # Очищаем временный локальный кэш билда перед стартом
-        rm -rf .buildozer/
+        # Запуск сборки без удаления локальной папки .buildozer (чтобы сохранить подложенные файлы лицензий)
         buildozer -v android debug
       env:
-        # Передаем правильные переменные путей Java и Android окружения
+        # Передаем только Java. Android-переменные не передаем, позволяя Buildozer изолированно скачать SDK
         JAVA_HOME: ${{ env.JAVA_HOME }}
-        ANDROID_SDK_ROOT: ${{ env.ANDROID_HOME }}
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
