@@ -18,6 +18,9 @@ version = 0.1
 # (list) Application requirements
 requirements = python3==3.11.16, hostpython3==3.11.16, kivy
 
+# (str) Android NDK version to use
+android.ndk = 25b
+
 # (string) Custom NDK version and Python version
 p4a.python_version = 3.11
 
