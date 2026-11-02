@@ -22,21 +22,24 @@ requirements = python3==3.11.16, hostpython3==3.11.16, kivy
 p4a.python_version = 3.11
 
 # =============================================================================
-# Настройки путей для GitHub Actions (решают ошибку "Aidl not found")
+# Настройки для GitHub Actions
 # =============================================================================
 
-# Указываем Buildozer использовать предустановленный в Ubuntu SDK вместо скачивания своего
-android.sdk_path = /usr/local/lib/android/sdk
+# Указываем точный путь к sdkmanager в актуальных образах Ubuntu
+android.sdkmanager_path = /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager
 
-# Рекомендуемые параметры API для стабильной сборки Kivy
+# Позволяем buildozer самому управлять SDK в локальной папке
+# android.sdk_path = 
+
+# Стабильные версии API для сборки
 android.api = 33
 android.minapi = 21
 android.ndk_api = 21
 
-# (bool) Использовать ли автоматическое принятие лицензий
+# Автоматически принимать лицензии
 android.accept_sdk_license = True
 
-# (list) Разрешения (добавьте нужные, если требуются)
+# (list) Разрешения
 android.permissions = INTERNET
 
 # (string) Ориентация экрана
